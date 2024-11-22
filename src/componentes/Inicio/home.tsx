@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styles from "../Inicio/homeStyles.module.css"
-const API_URL = "https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0";
+const API_URL = "https://pokeapi.co/api/v2/pokemon/?limit=15&offset=0";
 import { CardPokemon } from "../card/card"
+import PokemonDetail from '../pokemonDetail/pokemonDetail'
+import { ThemeContext } from "../context/themeContext";
+
 
 interface Pokemon {
     id: number;
@@ -9,9 +12,29 @@ interface Pokemon {
     img: string;
     types: string[];
 }
+interface PokemonSelected {
+    name: string;
+    img: string;
+}
 
-export function Home() {
+type HomeProps = {
+    actualizarEstadoNavbar: any;
+}
+
+export function Home({ actualizarEstadoNavbar }: HomeProps) {
+    const [selectCard, setSelectCard] = useState<PokemonSelected | null>(null);
     const [pokemones, setPokemones] = useState<Pokemon[]>([]);
+    const { theme } = useContext(ThemeContext)
+
+
+    const handleCardSelect = (info: PokemonSelected) => {
+        setSelectCard(info);
+        actualizarEstadoNavbar(true)
+    }
+    const handleCardClose = () => {
+        setSelectCard(null);
+        actualizarEstadoNavbar(false)
+    }
 
     useEffect(() => {
         async function API() {
@@ -39,18 +62,28 @@ export function Home() {
 
     return (
         <>
-            <article className={styles.container_home}>
-                <div className={styles.container_div_home}>
-                    {pokemones.map((pokemon) => {
-                        return (
-                            <>
-                                <CardPokemon img={pokemon.img} name={pokemon.name} id={pokemon.id} type={pokemon.types} />
-                            </>
-                        )
-                    }
-                    )}
-                </div>
-            </article>
+
+            {!selectCard &&
+                <article className={theme ? styles.container_div_home_dark : styles.container_div_home_light}>
+                    <div className={`${styles.container_div_home} ${theme ? styles.darkTheme : styles.lightTheme}`}>
+                        {pokemones.map((pokemon) => {
+                            return (
+                                <CardPokemon key={pokemon.id} img={pokemon.img} name={pokemon.name} id={pokemon.id} type={pokemon.types} onClick={() => handleCardSelect(pokemon)} />
+                            )
+                        }
+                        )}
+                    </div>
+                </article>
+            }
+            {selectCard && (
+                <PokemonDetail
+                    key={selectCard.name}
+                    namePokemonDetail={selectCard.name}
+                    imgPokemonDetail={selectCard.img}
+                    onClick={handleCardClose}
+                />
+            )}
+
         </>
     );
 }

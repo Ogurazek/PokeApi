@@ -3,12 +3,30 @@
   line-height: 1.5;
   font-weight: 400;
 
+  --darkTheme: #0f3c99;
+  --darkThemeThings: #152e41;
+
+  --lightTheme: #dc0a2d;
+  --lightThemeThings: rgb(245, 245, 245);
+
   color-scheme: dark;
-
-  background-color: #dc0a2d;
-
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
