@@ -1,4 +1,4 @@
-import { createContext, useState, Dispatch, ReactNode, SetStateAction } from "react"
+import { createContext, useState, Dispatch, ReactNode, SetStateAction, useEffect } from "react"
 
 interface ThemeContextType {
     theme: boolean;
@@ -19,8 +19,15 @@ interface ThemeChildren {
 
 // 2- Crear el componente donde vamos a tener los estados y demás... Importante: Se puede crear en otro archivo
 export function ThemeColor({ children }: ThemeChildren) {
+    // 1-2 / Para guardar en el LocalStorage el tema hay que hacer eso...
+    const [theme, setTheme] = useState(() => {
+        const savedTheme = localStorage.getItem("theme")
+        return savedTheme ? JSON.parse(savedTheme) : false;
+    });
 
-    const [theme, setTheme] = useState(false);
+    useEffect(() => {
+        localStorage.setItem("theme", JSON.stringify(theme))
+    }, [theme])
 
     // 3- Tenemos que crear el Provider. 
     return (
