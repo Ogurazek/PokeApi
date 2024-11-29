@@ -18,7 +18,7 @@ interface PokemonContextType {
 // 4- Poner el Providar en el componente Padre
 // 5- Usar esos estados en los demás componentes. 
 
-const API_URL = "https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0";
+const API_URL = "https://pokeapi.co/api/v2/pokemon/?limit=15&offset=0";
 
 export const PokemonContext = createContext<PokemonContextType | null>(null);
 

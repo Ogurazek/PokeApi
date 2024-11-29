@@ -10,6 +10,7 @@ import { PokemonContext } from "../context/pokemonesContext";
 interface PokemonSelected {
     name: string;
     img: string;
+    id: number;
 }
 
 type HomeProps = {
@@ -61,6 +62,7 @@ export function Home({ actualizarEstadoNavbar }: HomeProps) {
                     key={selectCard.name}
                     namePokemonDetail={selectCard.name}
                     imgPokemonDetail={selectCard.img}
+                    numberPokemonDetail={selectCard.id}
                     onClick={handleCardClose}
                 />
             )}
