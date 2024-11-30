@@ -21,16 +21,31 @@ export default function PokemonDetail({ imgPokemonDetail, namePokemonDetail, num
                         </div>
                         <div className={styles.container_numeral_pd}>#{numberPokemonDetail}</div>
                     </section>
+                    <div className={styles.img_background_pd} >
+                        <img src="/Pokeball.svg" alt="" />
+                    </div>
                     <section className={styles.main_img_pd}>
                         <div className={styles.main_img_pd_div}>
                             <img src={imgPokemonDetail} alt="Pokemon" />
                         </div>
                     </section>
                     <section className={styles.about_poke_pd}>
-
+                        <header className={styles.about_type_pd}>
+                            <CardTypePokemon cardType="Grass" />
+                            <CardTypePokemon cardType="Poison" />
+                        </header>
+                        <div className={styles.about_pd}><strong>About</strong></div>
                     </section>
                 </div>
             </article>
+        </>
+    )
+}
+
+function CardTypePokemon({ cardType }: { cardType: string }) {
+    return (
+        <>
+            <div className={styles.cardType}><p>{cardType}</p></div>
         </>
     )
 }
