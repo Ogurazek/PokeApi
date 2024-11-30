@@ -9,6 +9,25 @@
   --lightTheme: #dc0a2d;
   --lightThemeThings: rgb(245, 245, 245);
 
+  --grass: #74cb48;
+  --fire: #f57d31;
+  --water: #6493eb;
+  --electric: #f9cf30;
+  --poison: #a43e9e;
+  --normal: #aaa67f;
+  --flying: #a891ec;
+  --bug: #a7b723;
+  --fighting: #c12239;
+  --ground: #dec16b;
+  --rock: #b69e31;
+  --dark: #75574c;
+  --dragon: #7037ff;
+  --fairy: #e69eac;
+  --steel: #b7b9d0;
+  --ghost: #70559b;
+  --psychic: #fb5584;
+  --ice: #9ad6df;
+
   color-scheme: dark;
   background-color: transparent;
   box-sizing: border-box;

@@ -11,6 +11,7 @@ interface PokemonSelected {
     name: string;
     img: string;
     id: number;
+    types: string[];
 }
 
 type HomeProps = {
@@ -64,6 +65,7 @@ export function Home({ actualizarEstadoNavbar }: HomeProps) {
                     imgPokemonDetail={selectCard.img}
                     numberPokemonDetail={selectCard.id}
                     onClick={handleCardClose}
+                    type={selectCard.types}
                 />
             )}
         </>
