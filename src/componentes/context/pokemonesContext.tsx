@@ -5,6 +5,9 @@ interface Pokemon {
     name: string;
     img: string;
     types: string[];
+    height: number;
+    weight: number;
+    baseState: string[];
 }
 
 interface PokemonContextType {
@@ -36,19 +39,37 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
             const data = await res.json();
             const { results } = data;
 
+
+
             const profilePokemon = results.map(async (pokemon: { url: string }) => {
                 const response = await fetch(pokemon.url);
                 const poke = await response.json();
+
                 const types = poke.types.map((typeInfo: { type: { name: string } }) => typeInfo.type.name);
+                const baseStats = poke.stats.map((statInfo: { base_stat: number; stat: { name: string } }) => {
+                    return {
+                        statName: statInfo.stat.name,
+                        baseStat: statInfo.base_stat,
+                    };
+                });
+
+
 
                 return {
                     id: poke.id,
                     name: poke.name,
                     img: poke.sprites.other["official-artwork"].front_default,
                     types: types,
+                    height: poke.height,
+                    weight: poke.weight,
+                    baseState: baseStats,
+
+
+
                 };
             });
             setPokemones(await Promise.all(profilePokemon));
+
         }
         API();
     }, []);

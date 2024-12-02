@@ -8,11 +8,23 @@ type PokemonDetailProps = {
     namePokemonDetail: string;
     numberPokemonDetail: number;
     type: string[];
+    height: number;
+    weight: number;
+    baseState: any[];
     onClick: React.MouseEventHandler<HTMLButtonElement>;
 
 }
 
-export default function PokemonDetail({ imgPokemonDetail, namePokemonDetail, numberPokemonDetail, onClick, type }: PokemonDetailProps) {
+const baseStatsNames: { [key: string]: string } = {
+    hp: "HP",
+    attack: "ATK",
+    defense: "DEF",
+    "special-attack": "SATK",
+    "special-defense": "SDEF",
+    speed: "SPD",
+};
+
+export default function PokemonDetail({ imgPokemonDetail, namePokemonDetail, numberPokemonDetail, onClick, type, height, weight, baseState }: PokemonDetailProps) {
 
     const getTypeClass = (type: string) => {
         switch (type) {
@@ -90,6 +102,31 @@ export default function PokemonDetail({ imgPokemonDetail, namePokemonDetail, num
                             ))}
                         </header>
                         <div className={styles.about_pd}><strong style={{ color: `${firstTypeClass}` }}>About</strong></div>
+                        <div className={styles.about_props_container_pd}>
+                            <div className={styles.about_props_pd_first}>
+                                <img src="/weight.svg" alt="" />
+                                <p>{weight} kg</p>
+                                <span>Weight</span>
+                            </div>
+                            <div className={styles.about_props_pd_second}>
+                                <img src="/Vector.svg" alt="" />
+                                <p>{height} m</p>
+                                <span>Height</span>
+                            </div>
+                        </div>
+                        <header className={styles.container_state_title_pd}><p>Base State</p></header>
+                        <section className={styles.container_state_pd}>
+                            {baseState.map((stat, index) => (
+                                <SectionState
+                                    backgroundColor={firstTypeClass}
+                                    key={index}
+                                    numberState={stat.baseStat}
+                                    nameState={baseStatsNames[stat.statName] || stat.statName}
+                                />
+                            ))}
+
+
+                        </section>
                     </section>
                 </div>
             </article>
@@ -98,7 +135,25 @@ export default function PokemonDetail({ imgPokemonDetail, namePokemonDetail, num
 }
 
 function CardTypePokemon({ cardType, typeClass }: { cardType: string, typeClass: string }) {
+
+
     return (
         <div className={`${styles.cardType} ${typeClass}`}><p>{cardType}</p></div>
+    )
+}
+
+function SectionState({ backgroundColor, numberState, nameState }: { backgroundColor: string, numberState: number, nameState: string }) {
+    const maxState = 250;
+    return (
+        <>
+            <article className={styles.container_line}>
+                <div className={styles.container_line_title}><p>{nameState}</p></div>
+                <span>{numberState}</span>
+                <div className={styles.container_line_main}>
+                    <div className={`${styles.container_line_main_first} ${backgroundColor}`}></div>
+                    <div className={`${styles.container_line_second}  ${backgroundColor}`} style={{ width: `${(numberState / maxState) * 100}%` }}></div>
+                </div>
+            </article>
+        </>
     )
 }
