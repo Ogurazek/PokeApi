@@ -12,6 +12,9 @@ interface Pokemon {
 
 interface PokemonContextType {
     pokemones: Pokemon[];
+    handleClickLoadMore: () => void;
+    saveScrollPosition: () => void;
+    restoreScrollPosition: () => void;
     setPokemones: React.Dispatch<React.SetStateAction<Pokemon[]>>;
 }
 
@@ -21,7 +24,7 @@ interface PokemonContextType {
 // 4- Poner el Providar en el componente Padre
 // 5- Usar esos estados en los demás componentes. 
 
-const API_URL = "https://pokeapi.co/api/v2/pokemon/?limit=50&offset=0";
+
 
 export const PokemonContext = createContext<PokemonContextType | null>(null);
 
@@ -31,11 +34,25 @@ interface PokemonProviderProps {
 
 export function PokemonProvider({ children }: PokemonProviderProps) {
     const [pokemones, setPokemones] = useState<Pokemon[]>([]);
+    const [offset, setOffset] = useState(0)
+    const [scrollPosition, setScrollPosition] = useState(0);
 
+    const handleClickLoadMore = () => {
+        setOffset(offset + 15)
+    }
+
+    const saveScrollPosition = () => {
+        setScrollPosition(window.scrollY); // Guardar posición actual
+    };
+
+    const restoreScrollPosition = () => {
+        window.scrollTo(0, scrollPosition); // Restaurar posición guardada
+    };
 
     useEffect(() => {
-        async function API() {
-            const res = await fetch(API_URL);
+        async function API(limit = 15) {
+            const API_URL = "https://pokeapi.co/api/";
+            const res = await fetch(`${API_URL}v2/pokemon/?limit=${limit}&offset=${offset}`);
             const data = await res.json();
             const { results } = data;
 
@@ -68,14 +85,21 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
 
                 };
             });
-            setPokemones(await Promise.all(profilePokemon));
+            const newPokemones = await Promise.all(profilePokemon);
+
+            setPokemones((prevPokemones) => {
+                const existingIds = new Set(prevPokemones.map((poke) => poke.id));
+                const uniquePokemones = newPokemones.filter((poke) => !existingIds.has(poke.id));
+                return [...prevPokemones, ...uniquePokemones];
+            });
+
 
         }
         API();
-    }, []);
+    }, [offset]);
 
     return (
-        <PokemonContext.Provider value={{ pokemones, setPokemones }}>
+        <PokemonContext.Provider value={{ pokemones, setPokemones, handleClickLoadMore, restoreScrollPosition, saveScrollPosition }}>
             {children}
         </PokemonContext.Provider>
     );
