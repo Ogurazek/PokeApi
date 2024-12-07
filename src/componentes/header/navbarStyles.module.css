@@ -6,7 +6,9 @@
   align-items: center;
   gap: 30px;
   position: relative;
+  margin-bottom: 1rem;
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.2);
+
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -91,6 +93,7 @@ input:focus {
   height: 32px;
   margin: 0;
   padding: 2px;
+  cursor: pointer;
 }
 
 .header_icon_theme:hover {

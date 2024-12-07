@@ -1,4 +1,6 @@
+
 import styles from "../card/cardStyles.module.css"
+
 
 
 type PokemonProps = {
@@ -10,6 +12,8 @@ type PokemonProps = {
 }
 
 export function CardPokemon({ name, img, id, type, onClick }: PokemonProps) {
+
+
 
   const getTypeClass = (type: string) => {
     switch (type) {
@@ -104,7 +108,7 @@ export function CardPokemon({ name, img, id, type, onClick }: PokemonProps) {
     <>
       <article className={`${styles.card_art} ${firstBorderTypeClass}`} onClick={onClick}>
         <section className={styles.card_sec_img}>
-          <span className={styles.card_span_id}>#{id}</span>
+          <span className={`${styles.card_span_id} ${borderTypeClass}`}>#{id}</span>
           <img src={img} alt={name} />
         </section>
         <section className={`${styles.card_sec_title} ${firstTypeClass}`}>

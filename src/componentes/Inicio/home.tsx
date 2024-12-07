@@ -5,6 +5,8 @@ import { CardPokemon } from "../card/card"
 import PokemonDetail from '../pokemonDetail/pokemonDetail'
 import { ThemeContext } from "../context/themeContext";
 import { PokemonContext } from "../context/pokemonesContext";
+import { SectionType } from "../SectionType/sectionType";
+
 
 
 interface PokemonSelected {
@@ -61,6 +63,11 @@ export function Home({ actualizarEstadoNavbar }: HomeProps) {
         <>
             {!selectCard && (
                 <article className={theme ? styles.container_div_home_dark : styles.container_div_home_light}>
+                    <nav className={styles.containerSectionType}>
+                        <section>
+                            <SectionType />
+                        </section>
+                    </nav>
                     <div className={`${styles.container_div_home} ${theme ? styles.darkTheme : styles.lightTheme}`}>
                         {pokemones.map((pokemon) => (
                             <CardPokemon
