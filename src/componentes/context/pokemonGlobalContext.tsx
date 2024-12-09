@@ -18,7 +18,7 @@ interface PokemonContextType {
     restoreScrollPosition: () => void;
     setPokemonesGlobal: React.Dispatch<React.SetStateAction<PokemonGlobal[]>>;
     filteredPokemon: PokemonGlobal[];
-    typeSelected: Record<string, boolean>;
+    typeSelected: any;
 }
 
 // 1- crear el context 
@@ -104,32 +104,32 @@ export function PokemonGlobalProvider({ children }: PokemonProviderProps) {
         API();
     }, [offset]);
 
-    const [typeSelected, setTypeSelected] = useState<Record<string, boolean>>(() => {
+    const [typeSelected, setTypeSelected] = useState({
         // Cargar el estado inicial desde localStorage o usar valores predeterminados
-        const saved = localStorage.getItem("typeSelected");
-        return saved ? JSON.parse(saved) : {
-            grass: false,
-            normal: false,
-            fighting: false,
-            flying: false,
-            poison: false,
-            ground: false,
-            rock: false,
-            bug: false,
-            ghost: false,
-            steel: false,
-            fire: false,
-            water: false,
-            electric: false,
-            psychic: false,
-            ice: false,
-            dragon: false,
-            dark: false,
-            fairy: false,
-            unknown: false,
-            shadow: false,
-        };
-    });
+
+
+        grass: false,
+        normal: false,
+        fighting: false,
+        flying: false,
+        poison: false,
+        ground: false,
+        rock: false,
+        bug: false,
+        ghost: false,
+        steel: false,
+        fire: false,
+        water: false,
+        electric: false,
+        psychic: false,
+        ice: false,
+        dragon: false,
+        dark: false,
+        fairy: false,
+        unknown: false,
+        shadow: false,
+    })
+
 
 
 
@@ -139,19 +139,62 @@ export function PokemonGlobalProvider({ children }: PokemonProviderProps) {
         const { name, checked } = e.target;
 
         if (checked) {
-
+            // Si se marca una casilla, reinicia todo a `false` excepto la seleccionada
             setTypeSelected(() => ({
-                [name]: true,
+                grass: false,
+                normal: false,
+                fighting: false,
+                flying: false,
+                poison: false,
+                ground: false,
+                rock: false,
+                bug: false,
+                ghost: false,
+                steel: false,
+                fire: false,
+                water: false,
+                electric: false,
+                psychic: false,
+                ice: false,
+                dragon: false,
+                dark: false,
+                fairy: false,
+                unknown: false,
+                shadow: false,
+                [name]: true, // Activa solo la seleccionada
             }));
 
-
+            // Filtra los Pokémon según el tipo seleccionado
             const filteredResults = pokemonesGlobal.filter((pokemon) =>
                 pokemon.types.includes(name)
             );
             setFilteredPokemon(filteredResults);
         } else {
+            // Si se desmarca la casilla, no hay ninguna seleccionada
+            setTypeSelected(() => ({
+                grass: false,
+                normal: false,
+                fighting: false,
+                flying: false,
+                poison: false,
+                ground: false,
+                rock: false,
+                bug: false,
+                ghost: false,
+                steel: false,
+                fire: false,
+                water: false,
+                electric: false,
+                psychic: false,
+                ice: false,
+                dragon: false,
+                dark: false,
+                fairy: false,
+                unknown: false,
+                shadow: false,
+            }));
 
-            setTypeSelected(() => ({}));
+            // Muestra un array vacío
             setFilteredPokemon([]);
         }
     };
