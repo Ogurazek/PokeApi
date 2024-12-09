@@ -49,6 +49,7 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
         window.scrollTo(0, scrollPosition); // Restaurar posición guardada
     };
 
+
     useEffect(() => {
         async function API(limit = 15) {
             const API_URL = "https://pokeapi.co/api/";
@@ -98,8 +99,19 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
         API();
     }, [offset]);
 
+
+
+
+
     return (
-        <PokemonContext.Provider value={{ pokemones, setPokemones, handleClickLoadMore, restoreScrollPosition, saveScrollPosition }}>
+        <PokemonContext.Provider value={{
+            pokemones,
+            setPokemones,
+            handleClickLoadMore,
+            restoreScrollPosition,
+            saveScrollPosition,
+
+        }}>
             {children}
         </PokemonContext.Provider>
     );

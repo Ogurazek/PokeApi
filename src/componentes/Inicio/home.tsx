@@ -6,6 +6,7 @@ import PokemonDetail from '../pokemonDetail/pokemonDetail'
 import { ThemeContext } from "../context/themeContext";
 import { PokemonContext } from "../context/pokemonesContext";
 import { SectionType } from "../SectionType/sectionType";
+import { PokemonGlobalContext } from '../context/pokemonGlobalContext'
 
 
 
@@ -27,6 +28,11 @@ export function Home({ actualizarEstadoNavbar }: HomeProps) {
     const [selectCard, setSelectCard] = useState<PokemonSelected | null>(null);
     const [scrollPosition, setScrollPosition] = useState(0);
     const { theme } = useContext(ThemeContext);
+    const globalContext = useContext(PokemonGlobalContext);
+    if (!globalContext) {
+        throw new Error("PokemonGlobalContext debe usarse dentro de un PokemonGlobalProvider");
+    }
+    const { filteredPokemon } = globalContext;
 
     const pokemonContext = useContext(PokemonContext);
 
@@ -69,18 +75,32 @@ export function Home({ actualizarEstadoNavbar }: HomeProps) {
                         </section>
                     </nav>
                     <div className={`${styles.container_div_home} ${theme ? styles.darkTheme : styles.lightTheme}`}>
-                        {pokemones.map((pokemon) => (
-                            <CardPokemon
-                                key={pokemon.id}
-                                img={pokemon.img}
-                                name={pokemon.name}
-                                id={pokemon.id}
-                                type={pokemon.types}
-                                onClick={() => handleCardSelect(pokemon)}
-                            />
-                        ))}
+                        {filteredPokemon.length ?
+                            <>
+                                {filteredPokemon.map((pokemon: any) => (
+                                    <CardPokemon
+                                        key={pokemon.id}
+                                        img={pokemon.img}
+                                        name={pokemon.name}
+                                        id={pokemon.id}
+                                        type={pokemon.types}
+                                        onClick={() => handleCardSelect(pokemon)}
+                                    />
+                                ))} </> :
+                            <>{pokemones.map((pokemon) => (
+                                <CardPokemon
+                                    key={pokemon.id}
+                                    img={pokemon.img}
+                                    name={pokemon.name}
+                                    id={pokemon.id}
+                                    type={pokemon.types}
+                                    onClick={() => handleCardSelect(pokemon)}
+                                />
+                            ))} </>}
                         <div className={styles.container_btn_loadMore}>
-                            <button className={`${styles.btn_loadMore} ${theme ? styles.darkTheme_btn : styles.lightTheme_btn}`} onClick={handleClickLoadMore}>Load More Pokemons</button>
+                            {filteredPokemon.length ? "" :
+                                <button className={`${styles.btn_loadMore} ${theme ? styles.darkTheme_btn : styles.lightTheme_btn}`} onClick={handleClickLoadMore}>Load More Pokemons</button>
+                            }
                         </div>
                     </div>
                 </article>

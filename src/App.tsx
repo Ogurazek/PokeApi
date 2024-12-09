@@ -4,6 +4,7 @@ import { Home } from "./componentes/Inicio/home"
 
 import { ThemeContext } from "./componentes/context/themeContext";;
 import { PokemonProvider } from "./componentes/context/pokemonesContext";
+import { PokemonGlobalProvider } from "./componentes/context/pokemonGlobalContext";
 import styles from './appStyles.module.css'
 
 function App() {
@@ -15,10 +16,12 @@ function App() {
     <>
 
       <PokemonProvider>
-        <div className={`${styles.container_app} ${theme ? styles.darkTheme : styles.lightTheme}`}>
-          {!closeNavbar && <NavBar />}
-          <Home actualizarEstadoNavbar={setCloseNavbar} />
-        </div>
+        <PokemonGlobalProvider>
+          <div className={`${styles.container_app} ${theme ? styles.darkTheme : styles.lightTheme}`}>
+            {!closeNavbar && <NavBar />}
+            <Home actualizarEstadoNavbar={setCloseNavbar} />
+          </div>
+        </PokemonGlobalProvider>
       </PokemonProvider>
 
     </>

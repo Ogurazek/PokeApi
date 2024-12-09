@@ -102,4 +102,37 @@
   overflow-x: scroll;
   white-space: nowrap;
   margin-bottom: 0.8rem;
+  padding: 6px;
+}
+
+body,
+.containerSectionType section {
+  --sb-track-color: #232e333a;
+  --sb-thumb-color: #eef7f1bb;
+  --sb-size: 5px;
+}
+
+body::-webkit-scrollbar,
+.containerSectionType section::-webkit-scrollbar {
+  width: var(--sb-size);
+  height: var(--sb-size);
+}
+
+body::-webkit-scrollbar-track,
+.containerSectionType section::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb,
+.containerSectionType section::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 5px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body,
+  .containerSectionType section {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
 }
