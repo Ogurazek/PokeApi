@@ -5,7 +5,7 @@ import styles from "../card/cardStyles.module.css"
 
 type PokemonProps = {
   name: string;
-  img: string;
+  img?: string;
   id: number;
   type: string[];
   onClick?: React.MouseEventHandler<HTMLElement>;

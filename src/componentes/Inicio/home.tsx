@@ -32,7 +32,7 @@ export function Home({ actualizarEstadoNavbar }: HomeProps) {
     if (!globalContext) {
         throw new Error("PokemonGlobalContext debe usarse dentro de un PokemonGlobalProvider");
     }
-    const { filteredPokemon } = globalContext;
+    const { filteredPokemon, resultados } = globalContext;
 
     const pokemonContext = useContext(PokemonContext);
 
@@ -75,19 +75,9 @@ export function Home({ actualizarEstadoNavbar }: HomeProps) {
                         </section>
                     </nav>
                     <div className={`${styles.container_div_home} ${theme ? styles.darkTheme : styles.lightTheme}`}>
-                        {filteredPokemon.length ?
-                            <>
-                                {filteredPokemon.map((pokemon: any) => (
-                                    <CardPokemon
-                                        key={pokemon.id}
-                                        img={pokemon.img}
-                                        name={pokemon.name}
-                                        id={pokemon.id}
-                                        type={pokemon.types}
-                                        onClick={() => handleCardSelect(pokemon)}
-                                    />
-                                ))} </> :
-                            <>{pokemones.map((pokemon) => (
+                        {resultados.length > 0 ? (
+                            // Mostrar resultados de la búsqueda
+                            resultados.map((pokemon: any) => (
                                 <CardPokemon
                                     key={pokemon.id}
                                     img={pokemon.img}
@@ -96,7 +86,32 @@ export function Home({ actualizarEstadoNavbar }: HomeProps) {
                                     type={pokemon.types}
                                     onClick={() => handleCardSelect(pokemon)}
                                 />
-                            ))} </>}
+                            ))
+                        ) : filteredPokemon.length > 0 ? (
+                            // Mostrar Pokémon filtrados (por tipo o categoría)
+                            filteredPokemon.map((pokemon: any) => (
+                                <CardPokemon
+                                    key={pokemon.id}
+                                    img={pokemon.img}
+                                    name={pokemon.name}
+                                    id={pokemon.id}
+                                    type={pokemon.types}
+                                    onClick={() => handleCardSelect(pokemon)}
+                                />
+                            ))
+                        ) : (
+                            // Mostrar lista principal de Pokémon
+                            pokemones.map((pokemon: any) => (
+                                <CardPokemon
+                                    key={pokemon.id}
+                                    img={pokemon.img}
+                                    name={pokemon.name}
+                                    id={pokemon.id}
+                                    type={pokemon.types}
+                                    onClick={() => handleCardSelect(pokemon)}
+                                />
+                            ))
+                        )}
                         <div className={styles.container_btn_loadMore}>
                             {filteredPokemon.length ? "" :
                                 <button className={`${styles.btn_loadMore} ${theme ? styles.darkTheme_btn : styles.lightTheme_btn}`} onClick={handleClickLoadMore}>Load More Pokemons</button>

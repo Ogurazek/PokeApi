@@ -19,6 +19,11 @@ interface PokemonContextType {
     setPokemonesGlobal: React.Dispatch<React.SetStateAction<PokemonGlobal[]>>;
     filteredPokemon: PokemonGlobal[];
     typeSelected: any;
+    manejarCambio: any;
+    terminos: any;
+    resultados: any;
+
+
 }
 
 // 1- crear el context 
@@ -42,6 +47,7 @@ export function PokemonGlobalProvider({ children }: PokemonProviderProps) {
     const [offset, setOffset] = useState(0)
     const [scrollPosition, setScrollPosition] = useState(0);
 
+
     const handleClickLoadMore = () => {
         setOffset(offset + 15)
     }
@@ -52,6 +58,21 @@ export function PokemonGlobalProvider({ children }: PokemonProviderProps) {
 
     const restoreScrollPosition = () => {
         window.scrollTo(0, scrollPosition); // Restaurar posición guardada
+    };
+
+
+    const [terminos, setTerminos] = useState("");
+    const [resultados, setResultados] = useState<PokemonGlobal[]>([]);
+
+    const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const valor = e.target.value;
+        setTerminos(valor);
+
+        // Filtra los Pokémon según el término ingresado
+        const filtrados = pokemonesGlobal.filter((item) =>
+            item.name.toLowerCase().includes(valor.toLowerCase())
+        );
+        setResultados(filtrados);
     };
 
 
@@ -197,7 +218,12 @@ export function PokemonGlobalProvider({ children }: PokemonProviderProps) {
             // Muestra un array vacío
             setFilteredPokemon([]);
         }
+
+
     };
+
+
+
 
 
     return (
@@ -209,7 +235,10 @@ export function PokemonGlobalProvider({ children }: PokemonProviderProps) {
             saveScrollPosition,
             handleCheckBox,
             filteredPokemon,
-            typeSelected
+            typeSelected,
+            manejarCambio,
+            terminos,
+            resultados,
 
         }}>
             {children}
