@@ -65,8 +65,13 @@ export function PokemonGlobalProvider({ children }: PokemonProviderProps) {
     const [resultados, setResultados] = useState<PokemonGlobal[]>([]);
 
     const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const valor = e.target.value;
-        setTerminos(valor);
+        const valor = e.target.value.trim();
+        setTerminos(valor)
+
+        if (valor === "") {
+            setResultados([]);
+            return
+        }
 
         // Filtra los Pokémon según el término ingresado
         const filtrados = pokemonesGlobal.filter((item) =>

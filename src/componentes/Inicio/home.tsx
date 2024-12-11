@@ -113,7 +113,7 @@ export function Home({ actualizarEstadoNavbar }: HomeProps) {
                             ))
                         )}
                         <div className={styles.container_btn_loadMore}>
-                            {filteredPokemon.length ? "" :
+                            {filteredPokemon.length || resultados.length > 0 ? "" :
                                 <button className={`${styles.btn_loadMore} ${theme ? styles.darkTheme_btn : styles.lightTheme_btn}`} onClick={handleClickLoadMore}>Load More Pokemons</button>
                             }
                         </div>
