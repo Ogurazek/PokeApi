@@ -37,7 +37,7 @@
   border-radius: 0.375rem;
   /* margin-top: 1.4rem; */
   box-shadow: inset 0px 0.25rem 0.625rem rgba(0, 0, 0, 0.2);
-  margin-bottom: 1.875rem;
+  margin-bottom: 0.1rem;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -91,6 +91,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 6px;
 }
 
 .containerSectionType section {
@@ -101,7 +102,7 @@
   overflow-y: none;
   overflow-x: scroll;
   white-space: nowrap;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.2rem;
   padding: 6px;
 }
 

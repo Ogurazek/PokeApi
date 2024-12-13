@@ -37,7 +37,7 @@ export function NavBar() {
                         type="text"
                         value={terminos}
                         onChange={manejarCambio}
-                        placeholder='Buscar Pokemones...' />
+                        placeholder='Search Pokemon...' />
                 </div>
                 <button className={styles.header_icon_theme} onClick={handleChangeTheme}> {theme ? <Sun size={28} /> : <Moon size={28} />} </button>
 

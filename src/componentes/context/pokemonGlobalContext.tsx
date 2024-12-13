@@ -53,11 +53,11 @@ export function PokemonGlobalProvider({ children }: PokemonProviderProps) {
     }
 
     const saveScrollPosition = () => {
-        setScrollPosition(window.scrollY); // Guardar posición actual
+        setScrollPosition(window.scrollY);
     };
 
     const restoreScrollPosition = () => {
-        window.scrollTo(0, scrollPosition); // Restaurar posición guardada
+        window.scrollTo(0, scrollPosition);
     };
 
 
@@ -73,7 +73,7 @@ export function PokemonGlobalProvider({ children }: PokemonProviderProps) {
             return
         }
 
-        // Filtra los Pokémon según el término ingresado
+
         const filtrados = pokemonesGlobal.filter((item) =>
             item.name.toLowerCase().includes(valor.toLowerCase())
         );
@@ -131,8 +131,6 @@ export function PokemonGlobalProvider({ children }: PokemonProviderProps) {
     }, [offset]);
 
     const [typeSelected, setTypeSelected] = useState({
-        // Cargar el estado inicial desde localStorage o usar valores predeterminados
-
 
         grass: false,
         normal: false,
@@ -165,7 +163,6 @@ export function PokemonGlobalProvider({ children }: PokemonProviderProps) {
         const { name, checked } = e.target;
 
         if (checked) {
-            // Si se marca una casilla, reinicia todo a `false` excepto la seleccionada
             setTypeSelected(() => ({
                 grass: false,
                 normal: false,
@@ -187,16 +184,16 @@ export function PokemonGlobalProvider({ children }: PokemonProviderProps) {
                 fairy: false,
                 unknown: false,
                 shadow: false,
-                [name]: true, // Activa solo la seleccionada
+                [name]: true,
             }));
 
-            // Filtra los Pokémon según el tipo seleccionado
+
             const filteredResults = pokemonesGlobal.filter((pokemon) =>
                 pokemon.types.includes(name)
             );
             setFilteredPokemon(filteredResults);
         } else {
-            // Si se desmarca la casilla, no hay ninguna seleccionada
+
             setTypeSelected(() => ({
                 grass: false,
                 normal: false,
@@ -220,7 +217,7 @@ export function PokemonGlobalProvider({ children }: PokemonProviderProps) {
                 shadow: false,
             }));
 
-            // Muestra un array vacío
+
             setFilteredPokemon([]);
         }
 
