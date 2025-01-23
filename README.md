@@ -35,15 +35,6 @@ Este proyecto es una Pokédex interactiva que utiliza la **PokeAPI** para mostra
 
 ---
 
-## Link del Proyecto
-
-Puedes probar la Pokédex aquí:  
-\*\*[Pokédex](# Pokédex
-
-Este proyecto es una Pokédex interactiva que utiliza la **PokeAPI** para mostrar información de los Pokémon. Fue desarrollada con **React.js**, **TypeScript**, **HTML**, **CSS**, y **Vite**, ofreciendo una experiencia amigable e intuitiva para los usuarios. Además, incluye una funcionalidad para cambiar entre tema claro y oscuro.
-
----
-
 ## Características
 
 - **Lista de Pokémon**:
