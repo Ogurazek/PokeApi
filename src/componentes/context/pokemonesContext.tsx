@@ -16,6 +16,7 @@ interface PokemonContextType {
     saveScrollPosition: () => void;
     restoreScrollPosition: () => void;
     setPokemones: React.Dispatch<React.SetStateAction<Pokemon[]>>;
+
 }
 
 // 1- crear el context 
@@ -53,9 +54,12 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
     useEffect(() => {
         async function API(limit = 15) {
             const API_URL = "https://pokeapi.co/api/";
+
             const res = await fetch(`${API_URL}v2/pokemon/?limit=${limit}&offset=${offset}`);
+
             const data = await res.json();
             const { results } = data;
+
 
 
 
@@ -95,6 +99,7 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
             });
 
 
+
         }
         API();
     }, [offset]);
@@ -111,7 +116,9 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
             restoreScrollPosition,
             saveScrollPosition,
 
+
         }}>
+
             {children}
         </PokemonContext.Provider>
     );
